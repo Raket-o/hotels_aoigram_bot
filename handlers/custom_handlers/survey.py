@@ -101,7 +101,7 @@ async def get_cities(message: types.Message, state: FSMContext) -> None:
         if city.isalpha():
             city_area = get_meta_data.list_cities_area(message.text.title())
             kb = list_button.list_button(city_area)
-            await message.answer('Отличный выбор. Записал. Введите округ (на английском языке):',
+            await message.answer('Отличный выбор. Записал. Введите район (на английском языке):',
                                  reply_markup=kb)
 
             async with state.proxy() as data:

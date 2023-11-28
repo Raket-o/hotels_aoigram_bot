@@ -1,8 +1,15 @@
-""" Модуль логгера. Записывает лог с ошибками в ./logs/err.log."""
+""" Модуль логгера. Записывает логи."""
 
 import logging
 import logging.config
 import sys
+import os
+
+
+DIR_LOGS = "logs"
+
+if not os.path.exists(DIR_LOGS):
+    os.makedirs(DIR_LOGS)
 
 dict_config = {
     "version": 1,
@@ -25,7 +32,7 @@ dict_config = {
         },
         "file_info_utils": {
             "class": "logging.handlers.TimedRotatingFileHandler",
-            "filename": "./logs/info.log",
+            "filename": f"./{DIR_LOGS}/info.log",
             "when": "H",
             "interval": 10,
             "backupCount": 1,
@@ -35,7 +42,7 @@ dict_config = {
         },
         "file_errors_utils": {
             "class": "logging.handlers.TimedRotatingFileHandler",
-            "filename": "./logs/err.log",
+            "filename": f"./{DIR_LOGS}/err.log",
             "when": "H",
             "interval": 10,
             "backupCount": 1,
