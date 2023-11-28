@@ -1,14 +1,16 @@
 """ Модуль команд "low", "high", "custom"""
-import loader
 import logging
+
 from aiogram import types
+from aiogram.dispatcher import FSMContext
+
+from api_requests import get_meta_data
+from handlers.custom_handlers import (handler_cmd_custom, handler_cmd_high,
+                                      handler_cmd_low)
+from keyboards.inline import main_menu
+from keyboards.reply import list_button
 from loader import dp
 from states.contact_information import UserInfoState
-from api_requests import get_meta_data
-from keyboards.reply import list_button
-from aiogram.dispatcher import FSMContext
-from keyboards.inline import main_menu
-from handlers.custom_handlers import handler_cmd_low, handler_cmd_high, handler_cmd_custom
 
 logger = logging.getLogger("logger_survey")
 

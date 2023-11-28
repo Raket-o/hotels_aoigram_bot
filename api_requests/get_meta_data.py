@@ -1,12 +1,13 @@
 """ Модуль запросов информации по отелям"""
 import json
-import re
 import logging
-from typing import List, Tuple, Any
-from config_data import config
+import re
 from datetime import date
+from typing import Any, List, Tuple
+
 from requests import request
 
+from config_data import config
 
 URL_COUNTRY = "https://hotels4.p.rapidapi.com/get-meta-data"
 URL_CITIES = "https://hotels4.p.rapidapi.com/locations/search"

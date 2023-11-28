@@ -1,9 +1,9 @@
 """ Модуль обработки команды 'start' """
 
 from aiogram import types
-from loader import dp
 from aiogram.dispatcher import FSMContext
 
+from loader import dp
 
 START_MESSAGE = """<b>/low</b> - <em>Запросить минимальные значения.</em>
 <b>/high</b> - <em>Запросить максимальные значения.</em>

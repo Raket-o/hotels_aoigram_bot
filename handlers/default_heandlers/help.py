@@ -1,9 +1,9 @@
 """ Модуль обработки команды 'help' """
 
 from aiogram import types
-from loader import dp
-from keyboards.inline import main_menu
 
+from keyboards.inline import main_menu
+from loader import dp
 
 # сортировка по возрастающей цене, близкое местоположение к городскому центру, звёздный рейтинг, рекомендации, кол-во просмотров
 __HELP_MESSAGE = """<b>/low</b> - <em>сортировка по возрастающей цене,

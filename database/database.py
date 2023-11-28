@@ -1,7 +1,7 @@
 """ Модуль работы с базой данных"""
 
-import sqlite3
 import json
+import sqlite3
 
 
 def init_db() -> None:

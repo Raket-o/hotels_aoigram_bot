@@ -1,10 +1,12 @@
 """ Модуль отображения истории запросов пользователей."""
 
 import json
-from database import database
+
 from aiogram import types
-from loader import dp
+
+from database import database
 from keyboards.inline.del_history import callback_del_history
+from loader import dp
 
 
 @dp.message_handler(commands=["history"])

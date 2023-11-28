@@ -1,15 +1,16 @@
 """ Модуль обработки состояния method_sort_custom"""
 import logging
+
 from aiogram import types
+from aiogram.dispatcher import FSMContext
+
+from handlers.custom_handlers.filter_amenities import AMENITIES
+from handlers.custom_handlers.filter_lodging import LODGING
+from handlers.custom_handlers.filter_meal_plan import MEAL_PLAN
+from handlers.custom_handlers.filter_star import STAR
+from keyboards.reply import list_button
 from loader import dp
 from states.contact_information import UserInfoState
-from keyboards.reply import list_button
-from aiogram.dispatcher import FSMContext
-from handlers.custom_handlers.filter_meal_plan import MEAL_PLAN
-from handlers.custom_handlers.filter_lodging import LODGING
-from handlers.custom_handlers.filter_amenities import AMENITIES
-from handlers.custom_handlers.filter_star import STAR
-
 
 logger = logging.getLogger("logger_handler_cmd_custom")
 

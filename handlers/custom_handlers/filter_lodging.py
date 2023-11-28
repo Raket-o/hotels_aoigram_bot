@@ -1,16 +1,16 @@
 """ Модуль фильтра вида жилья"""
 import logging
 import sqlite3
-from aiogram import types
-from loader import dp
-from states.contact_information import UserInfoState
-from api_requests import get_meta_data
-from aiogram.dispatcher import FSMContext
-from database import database
 from datetime import date, timedelta
-from keyboards.inline import main_menu
-from loader import bot
 
+from aiogram import types
+from aiogram.dispatcher import FSMContext
+
+from api_requests import get_meta_data
+from database import database
+from keyboards.inline import main_menu
+from loader import bot, dp
+from states.contact_information import UserInfoState
 
 logger = logging.getLogger("logger_handler_filter_meal_plan")
 

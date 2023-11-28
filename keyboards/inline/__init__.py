@@ -1,2 +1,1 @@
-from . import main_menu
-from . import del_history
+from . import del_history, main_menu

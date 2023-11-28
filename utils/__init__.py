@@ -1,2 +1,1 @@
-from . import misc
-from . import logging
+from . import logging, misc

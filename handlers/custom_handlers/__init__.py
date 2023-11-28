@@ -1,11 +1,3 @@
-from . import survey
-from . import back_main_menu
-from . import show_history
-from . import del_history
-from . import handler_cmd_low
-from . import handler_cmd_high
-from . import handler_cmd_custom
-from . import filter_price
-from . import filter_meal_plan
-from . import filter_amenities
-from . import filter_star
+from . import (back_main_menu, del_history, filter_amenities, filter_meal_plan,
+               filter_price, filter_star, handler_cmd_custom, handler_cmd_high,
+               handler_cmd_low, show_history, survey)

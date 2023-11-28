@@ -1,9 +1,8 @@
 """ Модуль логгера. Записывает логи."""
 
 import logging.config
-import sys
 import os
-
+import sys
 
 DIR_LOGS = "logs"
 

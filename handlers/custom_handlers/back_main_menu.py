@@ -1,8 +1,9 @@
 """ Модуль обработки каллбэка с датой main_menu"""
 from aiogram import types
-from loader import dp
 from aiogram.dispatcher import FSMContext
+
 from handlers.default_heandlers import start
+from loader import dp
 
 
 @dp.callback_query_handler(lambda callback_query: callback_query.data == "main_menu", state="*")

@@ -1,7 +1,8 @@
 """ Модуль обработки каллбэка с датой del_history"""
 from aiogram import types
-from loader import dp
+
 from database.database import delete_history_db
+from loader import dp
 
 
 @dp.callback_query_handler(lambda callback_query: callback_query.data == "del_history")
