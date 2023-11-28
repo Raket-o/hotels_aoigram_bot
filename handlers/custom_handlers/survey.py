@@ -7,10 +7,7 @@ from states.contact_information import UserInfoState
 from api_requests import get_meta_data
 from keyboards.reply import list_button
 from aiogram.dispatcher import FSMContext
-from database import database
-from datetime import date, timedelta
 from keyboards.inline import main_menu
-from loader import bot
 from handlers.custom_handlers import handler_cmd_low, handler_cmd_high, handler_cmd_custom
 
 logger = logging.getLogger("logger_survey")

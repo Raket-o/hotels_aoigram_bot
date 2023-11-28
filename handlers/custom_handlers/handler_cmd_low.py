@@ -1,13 +1,10 @@
 """ Модуль обработки состояния method_sort_low"""
-import loader
-import json
 import logging
 import sqlite3
 from aiogram import types
 from loader import dp
 from states.contact_information import UserInfoState
 from api_requests import get_meta_data
-from keyboards.reply import list_button
 from aiogram.dispatcher import FSMContext
 from database import database
 from datetime import date, timedelta

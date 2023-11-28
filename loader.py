@@ -1,10 +1,9 @@
 """ Модуль инициализации телеграмм бота"""
 
 import logging
-from aiogram import Bot, Dispatcher, types, executor
+from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from config_data import config
-# from logging import Logger
 from asyncio import get_event_loop
 
 logger = logging.getLogger("logger_loader")

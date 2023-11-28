@@ -1,11 +1,10 @@
 """ Модуль запросов информации по отелям"""
-import sqlite3
 import json
 import re
 import logging
 from typing import List, Tuple, Any
 from config_data import config
-from datetime import date, timedelta
+from datetime import date
 from requests import request
 
 
@@ -143,7 +142,6 @@ def detail_hotel(id_hotel: int):
     }
 
     response = request("POST", URL_DETAL_HOTEL, json=payload, headers=config.HAEDERS_RAPID, timeout=1000)
-    # print(response.text)
     data = json.loads(response.text)
     name_hotel = data["data"]["propertyInfo"]["summary"]["name"]
 
@@ -155,19 +153,9 @@ def detail_hotel(id_hotel: int):
 
     photo_location = data["data"]["propertyInfo"]["summary"]["location"]["staticImage"]["url"]
 
-    # photos = tuple(
-    #     i["images"][0]["image"]["url"]
-    #     for i in data["data"]["propertyInfo"]["propertyGallery"]["imagesGrouped"]
-    # ) старый запрос-- изменили 14,03,2023
-
     photos = tuple(
         i["image"]["url"]
         for i in data["data"]["propertyInfo"]["propertyGallery"]["images"]
     )[:6]
-
-    # print(name_hotel)
-    # print(photo_location)
-    # print(rating_hotel)
-    # print(photos)
 
     return name_hotel, rating_hotel, photo_location, photos

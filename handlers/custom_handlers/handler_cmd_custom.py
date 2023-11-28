@@ -1,18 +1,10 @@
 """ Модуль обработки состояния method_sort_custom"""
-import loader
-import json
 import logging
-import sqlite3
 from aiogram import types
 from loader import dp
 from states.contact_information import UserInfoState
-from api_requests import get_meta_data
 from keyboards.reply import list_button
 from aiogram.dispatcher import FSMContext
-from database import database
-from datetime import date, timedelta
-from keyboards.inline import main_menu
-from loader import bot
 from handlers.custom_handlers.filter_meal_plan import MEAL_PLAN
 from handlers.custom_handlers.filter_lodging import LODGING
 from handlers.custom_handlers.filter_amenities import AMENITIES

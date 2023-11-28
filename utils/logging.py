@@ -1,6 +1,5 @@
 """ Модуль логгера. Записывает логи."""
 
-import logging
 import logging.config
 import sys
 import os
