@@ -23,8 +23,8 @@ __HELP_MESSAGE = """<b>/low</b> - <em>сортировка по возраста
 
 
 @dp.message_handler(commands=["help"])
-async def stars_command(message: types.Message):
-    """ Функция stars_command. Обрабатывает команду 'help' """
-    await message.answer(__HELP_MESSAGE, parse_mode="HTML", reply_markup=main_menu.callback_main_menu())
-
-
+async def stars_command(message: types.Message) -> None:
+    """Функция stars_command. Обрабатывает команду 'help'"""
+    await message.answer(
+        __HELP_MESSAGE, parse_mode="HTML", reply_markup=main_menu.callback_main_menu()
+    )

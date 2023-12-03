@@ -3,7 +3,8 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 
 
 class UserInfoState(StatesGroup):
-    """ Класс UserInfoState. Хранит состояние, информацию и данные вводимые пользователем"""
+    """Класс UserInfoState. Хранит состояние, информацию и данные вводимые пользователем"""
+
     user_id = State()
     user_name = State()
     country = State()

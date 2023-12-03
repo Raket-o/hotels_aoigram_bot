@@ -5,8 +5,11 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 
 from api_requests import get_meta_data
-from handlers.custom_handlers import (handler_cmd_custom, handler_cmd_high,
-                                      handler_cmd_low)
+from handlers.custom_handlers import (
+    handler_cmd_custom,
+    handler_cmd_high,
+    handler_cmd_low,
+)
 from keyboards.inline import main_menu
 from keyboards.reply import list_button
 from loader import dp
@@ -17,7 +20,7 @@ logger = logging.getLogger("logger_survey")
 
 @dp.message_handler(commands=["low", "high", "custom"])
 async def stars_command(message: types.Message, state: FSMContext) -> None:
-    """ Функция stars_command. Запускается от команды "low", "high", "custom".
+    """Функция stars_command. Запускается от команды "low", "high", "custom".
     Записывает в хранилище бота: "user_id", "command", "user_name".
     Вызывается функция get_meta_data.list_country(), которая возвращает список стран.
     Список передаётся функции list_button.list_button(countries), которая возвращает
@@ -38,14 +41,18 @@ async def stars_command(message: types.Message, state: FSMContext) -> None:
     try:
         countries = get_meta_data.list_country()
         kb = list_button.list_button(countries)
-        await message.answer('Введите страну (на английском языке):', reply_markup=kb)
+        await message.answer("Введите страну (на английском языке):", reply_markup=kb)
         await UserInfoState.country.set()
         # await UserInfoState.city_area.set()
 
     except TypeError:
-        logger.error("stars_command - You have exceeded the MONTHLY quota for Requests on your current plan, BASIC")
-        await message.answer('Упс, что-то случилось. Попробуйте снова и введите другой округ',
-                             reply_markup=main_menu.callback_main_menu())
+        logger.error(
+            "stars_command - You have exceeded the MONTHLY quota for Requests on your current plan, BASIC"
+        )
+        await message.answer(
+            "Упс, что-то случилось. Попробуйте снова и введите другой округ",
+            reply_markup=main_menu.callback_main_menu(),
+        )
 
 
 @dp.message_handler(state=UserInfoState.country)
@@ -62,7 +69,7 @@ async def get_country(message: types.Message, state: FSMContext) -> None:
     :param state: FSMContext
     :return: None
     """
-    country = message.text.replace(' ', '')
+    country = message.text.replace(" ", "")
     if country.isalpha():
         async with state.proxy() as data:
             data["country"] = message.text.title()
@@ -70,12 +77,14 @@ async def get_country(message: types.Message, state: FSMContext) -> None:
 
         cites = get_meta_data.list_cities(message.text.title())
         kb = list_button.list_button(cites)
-        await message.answer('Отличный выбор. Записал. Введите город (на английском языке):',
-                             reply_markup=kb)
+        await message.answer(
+            "Отличный выбор. Записал. Введите город (на английском языке):",
+            reply_markup=kb,
+        )
         await UserInfoState.city.set()
 
     else:
-        await message.answer('Название страны может содержать только буквы')
+        await message.answer("Название страны может содержать только буквы")
 
 
 @dp.message_handler(state=UserInfoState.city)
@@ -95,13 +104,15 @@ async def get_cities(message: types.Message, state: FSMContext) -> None:
     :param state: FSMContext
     :return: None
     """
-    city = message.text.replace(' ', '')
+    city = message.text.replace(" ", "")
     try:
         if city.isalpha():
             city_area = get_meta_data.list_cities_area(message.text.title())
             kb = list_button.list_button(city_area)
-            await message.answer('Отличный выбор. Записал. Введите район (на английском языке):',
-                                 reply_markup=kb)
+            await message.answer(
+                "Отличный выбор. Записал. Введите район (на английском языке):",
+                reply_markup=kb,
+            )
 
             async with state.proxy() as data:
                 data["city"] = message.text.title()
@@ -111,12 +122,14 @@ async def get_cities(message: types.Message, state: FSMContext) -> None:
             await UserInfoState.city_area.set()
 
         else:
-            await message.answer('Название города может содержать только буквы')
+            await message.answer("Название города может содержать только буквы")
 
     except ValueError:
         logger.error("get_cities")
-        await message.answer('Упс, что-то случилось. Попробуйте снова и введите другой город',
-                             reply_markup=main_menu.callback_main_menu())
+        await message.answer(
+            "Упс, что-то случилось. Попробуйте снова и введите другой город",
+            reply_markup=main_menu.callback_main_menu(),
+        )
         await state.finish()
 
 
@@ -134,23 +147,31 @@ async def get_city_area(message: types.Message, state: FSMContext) -> None:
     """
     try:
         async with state.proxy() as data:
-            id_city_area, *_ = set(i[1] for i in data["list_id_city_area"] if i[0] == message.text)
+            id_city_area, *_ = set(
+                i[1] for i in data["list_id_city_area"] if i[0] == message.text
+            )
             data["city_area"] = message.text.title()
             data["id_city_area"] = id_city_area
             print(data)
 
         if not id_city_area:
-            await message.answer('Упс, что-то случилось. Попробуйте снова и введите другой округ',
-                                 reply_markup=main_menu.callback_main_menu())
+            await message.answer(
+                "Упс, что-то случилось. Попробуйте снова и введите другой округ",
+                reply_markup=main_menu.callback_main_menu(),
+            )
 
         await UserInfoState.qty_hotels.set()
 
-        await message.answer('Отличный выбор. Записал. Сколько отелей показать (не больше 10)?')
+        await message.answer(
+            "Отличный выбор. Записал. Сколько отелей показать (не больше 10)?"
+        )
 
     except ValueError:
         logger.error("get_city_area")
-        await message.answer('Упс, что-то случилось. Попробуйте снова и введите другой округ',
-                             reply_markup=main_menu.callback_main_menu())
+        await message.answer(
+            "Упс, что-то случилось. Попробуйте снова и введите другой округ",
+            reply_markup=main_menu.callback_main_menu(),
+        )
 
 
 @dp.message_handler(state=UserInfoState.qty_hotels)
@@ -171,13 +192,14 @@ async def get_qty_hotels(message: types.Message, state: FSMContext) -> None:
     try:
         qty_hotels = int(message.text)
         if qty_hotels in range(1, 11):
-
             if user_cmd == "/low":
                 logger.info("low")
                 kb = list_button.list_button(handler_cmd_low.REQ_SORT)
 
-                await message.answer('Записал. Выберете по какой категории отсортировать отели.',
-                                     reply_markup=kb)
+                await message.answer(
+                    "Записал. Выберете по какой категории отсортировать отели.",
+                    reply_markup=kb,
+                )
 
                 async with state.proxy() as data:
                     data["qty_hotels"] = qty_hotels
@@ -189,8 +211,10 @@ async def get_qty_hotels(message: types.Message, state: FSMContext) -> None:
                 logger.info("high")
                 kb = list_button.list_button(handler_cmd_high.REQ_SORT)
 
-                await message.answer('Записал. Выберете по какой категории отсортировать отели.',
-                                     reply_markup=kb)
+                await message.answer(
+                    "Записал. Выберете по какой категории отсортировать отели.",
+                    reply_markup=kb,
+                )
 
                 async with state.proxy() as data:
                     data["qty_hotels"] = qty_hotels
@@ -202,8 +226,10 @@ async def get_qty_hotels(message: types.Message, state: FSMContext) -> None:
                 logger.info("custom")
                 kb = list_button.list_button(handler_cmd_custom.REQ_CUSTOM)
 
-                await message.answer('Записал. Выберете по какой категории отфильтровать отели.',
-                                     reply_markup=kb)
+                await message.answer(
+                    "Записал. Выберете по какой категории отфильтровать отели.",
+                    reply_markup=kb,
+                )
 
                 async with state.proxy() as data:
                     data["qty_hotels"] = qty_hotels
@@ -212,8 +238,8 @@ async def get_qty_hotels(message: types.Message, state: FSMContext) -> None:
                 await UserInfoState.method_sort_custom.set()
 
         else:
-            await message.answer('Количество отелей может быть не больше 10.')
+            await message.answer("Количество отелей может быть не больше 10.")
 
     except ValueError:
         logger.error("get_qty_hotels")
-        await message.answer('Количество отелей может быть не больше 10.')
+        await message.answer("Количество отелей может быть не больше 10.")

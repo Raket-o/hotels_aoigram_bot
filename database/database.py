@@ -5,8 +5,8 @@ import sqlite3
 
 
 def init_db() -> None:
-    """ Функция init_db. При отсутствии базы донной создаёт ёё. """
-    with sqlite3.connect('database/database.db') as conn:
+    """Функция init_db. При отсутствии базы донной создаёт ёё."""
+    with sqlite3.connect("database/database.db") as conn:
         cursor: sqlite3.Cursor = conn.cursor()
         cursor.execute(
             """
@@ -38,8 +38,8 @@ def init_db() -> None:
 
 
 def rec_cmd_low(dict_data) -> None:
-    """ Функция rec_cmd_low. Записывает данные в базу данных"""
-    with sqlite3.connect('database/database.db') as conn:
+    """Функция rec_cmd_low. Записывает данные в базу данных"""
+    with sqlite3.connect("database/database.db") as conn:
         cursor: sqlite3.Cursor = conn.cursor()
         cursor.execute(
             """
@@ -54,8 +54,8 @@ def rec_cmd_low(dict_data) -> None:
                 dict_data["city"],
                 dict_data["city_area"],
                 json.dumps(dict_data["list_hotels"]),
-                dict_data["method_sort_for_history"]
-            )
+                dict_data["method_sort_for_history"],
+            ),
         )
         conn.commit()
 
@@ -66,14 +66,14 @@ def seek_history(user_id: int):
     :param user_id: Ид пользователя
     :return: список[со строками из бд]
     """
-    with sqlite3.connect('database/database.db') as conn:
+    with sqlite3.connect("database/database.db") as conn:
         cursor: sqlite3.Cursor = conn.cursor()
         cursor.execute(
             """
             SELECT *
             FROM table_user_request WHERE user_id = ?
             """,
-            (user_id, )
+            (user_id,),
         )
         detail_history = cursor.fetchall()
 
@@ -87,11 +87,11 @@ def delete_history_db(user_id: int) -> None:
     :param user_id: user_id
     :return: None
     """
-    with sqlite3.connect('database/database.db') as conn:
+    with sqlite3.connect("database/database.db") as conn:
         cursor: sqlite3.Cursor = conn.cursor()
         cursor.execute(
             """
             DELETE FROM table_user_request WHERE user_id = ?
             """,
-            (user_id, )
+            (user_id,),
         )

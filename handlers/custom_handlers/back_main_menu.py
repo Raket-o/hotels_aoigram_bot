@@ -6,8 +6,12 @@ from handlers.default_heandlers import start
 from loader import dp
 
 
-@dp.callback_query_handler(lambda callback_query: callback_query.data == "main_menu", state="*")
-async def main_menu(message: [types.CallbackQuery, types.Message], state: FSMContext) -> None:
+@dp.callback_query_handler(
+    lambda callback_query: callback_query.data == "main_menu", state="*"
+)
+async def main_menu(
+    message: [types.CallbackQuery, types.Message], state: FSMContext
+) -> None:
     """
     Функия main_menu. Каллбэка с датой main_menu запускает данную функцию.
     Завершает ожидание состояния и выводит текст (главного меню)

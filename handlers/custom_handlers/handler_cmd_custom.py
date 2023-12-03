@@ -19,7 +19,7 @@ REQ_CUSTOM = (
     ("Питание", "mealPlan"),
     ("Вид жилья", "lodging"),
     ("Особенности", "amenities"),
-    ("Звездный рейтинг", "star")
+    ("Звездный рейтинг", "star"),
 )
 
 
@@ -48,24 +48,23 @@ async def get_met_sort_custom(message: types.Message, state: FSMContext) -> None
 
         elif method_sort == "mealPlan":
             kb = list_button.list_button(MEAL_PLAN)
-            await message.answer('Выберите рацион.', reply_markup=kb)
+            await message.answer("Выберите рацион.", reply_markup=kb)
             await UserInfoState.set_mealPlan.set()
 
         elif method_sort == "lodging":
             kb = list_button.list_button(LODGING)
-            await message.answer('Выберите вид жилья.', reply_markup=kb)
+            await message.answer("Выберите вид жилья.", reply_markup=kb)
             await UserInfoState.set_lodging.set()
 
         elif method_sort == "amenities":
             kb = list_button.list_button(AMENITIES)
-            await message.answer('Выберите особенность.', reply_markup=kb)
+            await message.answer("Выберите особенность.", reply_markup=kb)
             await UserInfoState.set_amenities.set()
 
         elif method_sort == "star":
             kb = list_button.list_button(STAR)
-            await message.answer('Выберите звёздность отеля.', reply_markup=kb)
+            await message.answer("Выберите звёздность отеля.", reply_markup=kb)
             await UserInfoState.set_star.set()
 
     else:
-        await message.answer('Некорректный выбор.')
-
+        await message.answer("Некорректный выбор.")

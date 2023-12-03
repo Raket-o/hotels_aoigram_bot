@@ -9,7 +9,9 @@ def list_button(lst) -> ReplyKeyboardMarkup:
     остальные элементы опциональны.
     :return: ReplyKeyboardMarkup
     """
-    keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2, one_time_keyboard=True)
+    keyboard = ReplyKeyboardMarkup(
+        resize_keyboard=True, row_width=2, one_time_keyboard=True
+    )
     keyboard.add(*(KeyboardButton(i_lst[0]) for i_lst in sorted(lst)))
 
     return keyboard

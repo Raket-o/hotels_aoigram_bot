@@ -15,5 +15,5 @@ START_MESSAGE = """<b>/low</b> - <em>Запросить минимальные �
 
 @dp.message_handler(commands=["start"])
 async def stars_command(message: types.Message) -> None:
-    """ Функция stars_command. Обрабатывает команду 'start' """
+    """Функция stars_command. Обрабатывает команду 'start'"""
     await message.answer(START_MESSAGE, parse_mode="HTML")

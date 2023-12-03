@@ -43,14 +43,20 @@ async def get_filter_price(message: types.Message, state: FSMContext) -> None:
                 async with state.proxy() as data:
                     data["data_check_in"] = check_in
                     data["data_check_out"] = check_out
-                    list_hotels = get_meta_data.list_hotels(region_id=data["id_city_area"],
-                                                            check_in=check_in,
-                                                            check_out=check_out,
-                                                            qty_hotels=data["qty_hotels"],
-                                                            adding_to_the_dict={"price": {"max": maxx, "min": minn}})
+                    list_hotels = get_meta_data.list_hotels(
+                        region_id=data["id_city_area"],
+                        check_in=check_in,
+                        check_out=check_out,
+                        qty_hotels=data["qty_hotels"],
+                        adding_to_the_dict={"price": {"max": maxx, "min": minn}},
+                    )
 
-                    data["data_check_in"] = f"{check_in.year}-{check_in.month}-{check_in.day}"
-                    data["data_check_out"] = f"{check_out.year}-{check_out.month}-{check_out.day}"
+                    data[
+                        "data_check_in"
+                    ] = f"{check_in.year}-{check_in.month}-{check_in.day}"
+                    data[
+                        "data_check_out"
+                    ] = f"{check_out.year}-{check_out.month}-{check_out.day}"
                     data["list_hotels"] = list_hotels
                     print(data)
                     try:
@@ -59,7 +65,12 @@ async def get_filter_price(message: types.Message, state: FSMContext) -> None:
                         logger.error("База данных, либо таблица в ней не найдена")
 
                 for id_hotel in list_hotels:
-                    name_hotel, rating_hotel, photo_location, photos = get_meta_data.detail_hotel(id_hotel=id_hotel[1])
+                    (
+                        name_hotel,
+                        rating_hotel,
+                        photo_location,
+                        photos,
+                    ) = get_meta_data.detail_hotel(id_hotel=id_hotel[1])
 
                     str_answer = f"""Название отеля: {name_hotel}
 Цена на сутки (за номер): {id_hotel[2]}
@@ -72,16 +83,20 @@ async def get_filter_price(message: types.Message, state: FSMContext) -> None:
 
                     await bot.send_media_group(chat_id=message.chat.id, media=media)
 
-                await message.answer('Запрос выполнен.', reply_markup=main_menu.callback_main_menu())
+                await message.answer(
+                    "Запрос выполнен.", reply_markup=main_menu.callback_main_menu()
+                )
 
             except TypeError:
                 logger.error("filter_set_price")
 
-                await message.answer('Упс, что-то случилось. Попробуйте снова и введите другой округ',
-                                     reply_markup=main_menu.callback_main_menu())
+                await message.answer(
+                    "Упс, что-то случилось. Попробуйте снова и введите другой округ",
+                    reply_markup=main_menu.callback_main_menu(),
+                )
 
         else:
-            await message.answer('Некорректный выбор.')
+            await message.answer("Некорректный выбор.")
 
     except ValueError:
-        await message.answer('Некорректный выбор.')
+        await message.answer("Некорректный выбор.")

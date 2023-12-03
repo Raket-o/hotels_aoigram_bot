@@ -15,10 +15,10 @@ dict_config = {
     "formatters": {
         "base": {
             "format": "{level: %(levelname)s | "
-                      "logger: %(name)s | "
-                      "time: %(asctime)s | "
-                      "line №: %(lineno)s | "
-                      "message: %(message)s}"
+            "logger: %(name)s | "
+            "time: %(asctime)s | "
+            "line №: %(lineno)s | "
+            "message: %(message)s}"
         }
     },
     "handlers": {
@@ -26,7 +26,7 @@ dict_config = {
             "class": "logging.StreamHandler",
             "level": "DEBUG",
             "formatter": "base",
-            "stream": sys.stdout
+            "stream": sys.stdout,
         },
         "file_info_utils": {
             "class": "logging.handlers.TimedRotatingFileHandler",
@@ -36,7 +36,7 @@ dict_config = {
             "backupCount": 1,
             "level": "DEBUG",
             "encoding": "utf8",
-            "formatter": "base"
+            "formatter": "base",
         },
         "file_errors_utils": {
             "class": "logging.handlers.TimedRotatingFileHandler",
@@ -46,59 +46,53 @@ dict_config = {
             "backupCount": 1,
             "level": "ERROR",
             "encoding": "utf8",
-            "formatter": "base"
+            "formatter": "base",
         },
     },
     "loggers": {
-        "logger_main": {
-            "level": "DEBUG",
-            "handlers": ["console", "file_info_utils"]
-        },
+        "logger_main": {"level": "DEBUG", "handlers": ["console", "file_info_utils"]},
         "logger_handler_high_low_price": {
             "level": "ERROR",
-            "handlers": ["console", "file_errors_utils"]
+            "handlers": ["console", "file_errors_utils"],
         },
         "logger_get_meta_data": {
             "level": "ERROR",
-            "handlers": ["console", "file_errors_utils"]
+            "handlers": ["console", "file_errors_utils"],
         },
-        "logger_loader": {
-            "level": "DEBUG",
-            "handlers": ["console", "file_info_utils"]
-        },
+        "logger_loader": {"level": "DEBUG", "handlers": ["console", "file_info_utils"]},
         "logger_handler_cmd_low": {
             "level": "ERROR",
-            "handlers": ["console", "file_errors_utils"]
+            "handlers": ["console", "file_errors_utils"],
         },
         "logger_handler_cmd_high": {
             "level": "ERROR",
-            "handlers": ["console", "file_errors_utils"]
+            "handlers": ["console", "file_errors_utils"],
         },
         "logger_handler_cmd_custom": {
             "level": "ERROR",
-            "handlers": ["console", "file_errors_utils"]
+            "handlers": ["console", "file_errors_utils"],
         },
         "logger_handler_filter_price": {
             "level": "ERROR",
-            "handlers": ["console", "file_errors_utils"]
+            "handlers": ["console", "file_errors_utils"],
         },
         "logger_handler_filter_meal_plan": {
             "level": "ERROR",
-            "handlers": ["console", "file_errors_utils"]
+            "handlers": ["console", "file_errors_utils"],
         },
         "logger_handler_filter_amenities": {
             "level": "ERROR",
-            "handlers": ["console", "file_errors_utils"]
+            "handlers": ["console", "file_errors_utils"],
         },
         "logger_handler_filter_star": {
             "level": "ERROR",
-            "handlers": ["console", "file_errors_utils"]
-        }
-    }
+            "handlers": ["console", "file_errors_utils"],
+        },
+    },
 }
 
 
 logging.config.dictConfig(dict_config)
 
-logger_root= logging.getLogger('')
+logger_root = logging.getLogger("")
 logger_root.setLevel(logging.DEBUG)

@@ -19,7 +19,7 @@ REQ_SORT = (
     ("Кол-во просмотров", "REVIEW"),
     ("Удалённость от центра", "DISTANCE"),
     ("Звездный рейтинг", "PROPERTY_CLASS"),
-    ("Рекомендации", "RECOMMENDED")
+    ("Рекомендации", "RECOMMENDED"),
 )
 
 
@@ -57,15 +57,21 @@ async def get_met_sort_high(message: types.Message, state: FSMContext) -> None:
                 data["method_sort"] = method_sort
                 data["data_check_in"] = check_in
                 data["data_check_out"] = check_out
-                qty_hotels=data["qty_hotels"]
-                data["list_hotels"] = list_hotels = get_meta_data.list_hotels(region_id=data["id_city_area"],
-                                                        check_in=check_in,
-                                                        check_out=check_out,
-                                                        qty_hotels=200,
-                                                        adding_to_the_dict=adding_to_the_dict)[::-1][:qty_hotels]
+                qty_hotels = data["qty_hotels"]
+                data["list_hotels"] = list_hotels = get_meta_data.list_hotels(
+                    region_id=data["id_city_area"],
+                    check_in=check_in,
+                    check_out=check_out,
+                    qty_hotels=200,
+                    adding_to_the_dict=adding_to_the_dict,
+                )[::-1][:qty_hotels]
 
-                data["data_check_in"] = f"{check_in.year}-{check_in.month}-{check_in.day}"
-                data["data_check_out"] = f"{check_out.year}-{check_out.month}-{check_out.day}"
+                data[
+                    "data_check_in"
+                ] = f"{check_in.year}-{check_in.month}-{check_in.day}"
+                data[
+                    "data_check_out"
+                ] = f"{check_out.year}-{check_out.month}-{check_out.day}"
 
                 print(data)
                 try:
@@ -77,7 +83,12 @@ async def get_met_sort_high(message: types.Message, state: FSMContext) -> None:
             for id_hotel in list_hotels:
                 if count == qty_hotels:
                     break
-                name_hotel, rating_hotel, photo_location, photos = get_meta_data.detail_hotel(id_hotel=id_hotel[1])
+                (
+                    name_hotel,
+                    rating_hotel,
+                    photo_location,
+                    photos,
+                ) = get_meta_data.detail_hotel(id_hotel=id_hotel[1])
 
                 str_answer = f"""Название отеля: {name_hotel}
 Цена на сутки (за номер): {id_hotel[2]}
@@ -91,13 +102,17 @@ async def get_met_sort_high(message: types.Message, state: FSMContext) -> None:
                 await bot.send_media_group(chat_id=message.chat.id, media=media)
                 count += 1
 
-            await message.answer('Запрос выполнен.', reply_markup=main_menu.callback_main_menu())
+            await message.answer(
+                "Запрос выполнен.", reply_markup=main_menu.callback_main_menu()
+            )
 
         except TypeError:
             logger.error("get_met_sort")
 
-            await message.answer('Упс, что-то случилось. Попробуйте снова и введите другой округ',
-                                 reply_markup=main_menu.callback_main_menu())
+            await message.answer(
+                "Упс, что-то случилось. Попробуйте снова и введите другой округ",
+                reply_markup=main_menu.callback_main_menu(),
+            )
 
     else:
-        await message.answer('Некорректный выбор.')
+        await message.answer("Некорректный выбор.")
